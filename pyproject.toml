@@ -6,6 +6,12 @@ authors = ["Maksim Tolstikov <mexamos0@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "3.9.5"
+fastapi = "^0.75.0"
+uvicorn = {extras = ["standard"], version = "^0.17.6"}
+alembic = "^1.7.7"
+SQLAlchemy = "^1.4.32"
+PyMySQL = "^1.0.2"
+cryptography = "^36.0.1"
 
 [tool.poetry.dev-dependencies]
 

@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0.28
+    container_name: test-task-mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-db_name}
+    volumes:
+      - mysql-volume:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: test-task-app
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - 8081:80
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-db_name}
+      - MYSQL_USER=${MYSQL_USER:-root}
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+    command: bash -c "sleep 10 && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 80 --reload"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-volume:
