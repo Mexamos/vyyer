@@ -1,0 +1,433 @@
+openapi: 3.0.2
+info:
+  title: FastAPI
+  version: 0.1.0
+paths:
+  "/scans/get":
+    get:
+      tags:
+      - Scan
+      summary: Get Scans
+      operationId: get_scans_scans_get_get
+      parameters:
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/ScansOrder"
+        name: order
+        in: query
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/OrderDirection"
+        name: order_direction
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Page_Scans_"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/scans/{scan_id}":
+    get:
+      tags:
+      - Scan
+      summary: Get Scans By Id
+      operationId: get_scans_by_id_scans__scan_id__get
+      parameters:
+      - required: true
+        schema:
+          title: Scan Id
+          type: string
+        name: scan_id
+        in: path
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/scans/range":
+    get:
+      tags:
+      - Scan
+      summary: Read User
+      operationId: read_user_scans_range_get
+      parameters:
+      - required: false
+        schema:
+          title: Offset
+          type: integer
+          default: 0
+        name: offset
+        in: query
+      - required: false
+        schema:
+          title: Limit
+          type: integer
+          default: 100
+          lte: 100
+        name: limit
+        in: query
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/ScansOrder"
+        name: order
+        in: query
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/OrderDirection"
+        name: order_direction
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Page_Scans_"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/identities/get":
+    get:
+      tags:
+      - Identity
+      summary: Get Scans
+      operationId: get_scans_identities_get_get
+      parameters:
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/IdentitiesOrder"
+        name: order
+        in: query
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/OrderDirection"
+        name: order_direction
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Page_Identities_"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/identities/{scan_id}":
+    get:
+      tags:
+      - Identity
+      summary: Get Scans By Id
+      operationId: get_scans_by_id_identities__scan_id__get
+      parameters:
+      - required: true
+        schema:
+          title: Identity Id
+          type: string
+        name: identity_id
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+  "/identities/range":
+    get:
+      tags:
+      - Identity
+      summary: Read User
+      operationId: read_user_identities_range_get
+      parameters:
+      - required: false
+        schema:
+          title: Offset
+          type: integer
+          default: 0
+        name: offset
+        in: query
+      - required: false
+        schema:
+          title: Limit
+          type: integer
+          default: 100
+          lte: 100
+        name: limit
+        in: query
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/IdentitiesOrder"
+        name: order
+        in: query
+      - required: false
+        schema:
+          "$ref": "#/components/schemas/OrderDirection"
+        name: order_direction
+        in: query
+      - required: false
+        schema:
+          title: Page
+          minimum: 1
+          type: integer
+          default: 1
+        name: page
+        in: query
+      - required: false
+        schema:
+          title: Size
+          maximum: 100
+          minimum: 1
+          type: integer
+          default: 50
+        name: size
+        in: query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Page_Identities_"
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/HTTPValidationError"
+components:
+  schemas:
+    HTTPValidationError:
+      title: HTTPValidationError
+      type: object
+      properties:
+        detail:
+          title: Detail
+          type: array
+          items:
+            "$ref": "#/components/schemas/ValidationError"
+    Identities:
+      title: Identities
+      required:
+      - vip
+      - ban
+      - start
+      - end
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        vip:
+          title: Vip
+          type: integer
+        ban:
+          title: Ban
+          type: integer
+        start:
+          title: Start
+          type: string
+          format: date-time
+        end:
+          title: End
+          type: string
+          format: date-time
+    IdentitiesOrder:
+      title: IdentitiesOrder
+      enum:
+      - id
+      - vip
+      - ban
+      - start
+      - end
+      type: string
+      description: An enumeration.
+    OrderDirection:
+      title: OrderDirection
+      enum:
+      - asc
+      - desc
+      type: string
+      description: An enumeration.
+    Page_Identities_:
+      title: Page[Identities]
+      required:
+      - items
+      - total
+      - page
+      - size
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            "$ref": "#/components/schemas/Identities"
+        total:
+          title: Total
+          minimum: 0
+          type: integer
+        page:
+          title: Page
+          minimum: 1
+          type: integer
+        size:
+          title: Size
+          minimum: 1
+          type: integer
+    Page_Scans_:
+      title: Page[Scans]
+      required:
+      - items
+      - total
+      - page
+      - size
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            "$ref": "#/components/schemas/Scans"
+        total:
+          title: Total
+          minimum: 0
+          type: integer
+        page:
+          title: Page
+          minimum: 1
+          type: integer
+        size:
+          title: Size
+          minimum: 1
+          type: integer
+    Scans:
+      title: Scans
+      required:
+      - user_id
+      - orientation
+      - license_number
+      - birthday
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        user_id:
+          title: User Id
+          type: string
+        orientation:
+          title: Orientation
+          type: integer
+        license_number:
+          title: License Number
+          type: integer
+        birthday:
+          title: Birthday
+          type: string
+          format: date-time
+    ScansOrder:
+      title: ScansOrder
+      enum:
+      - id
+      - user_id
+      - orientation
+      - license_number
+      - birthday
+      type: string
+      description: An enumeration.
+    ValidationError:
+      title: ValidationError
+      required:
+      - loc
+      - msg
+      - type
+      type: object
+      properties:
+        loc:
+          title: Location
+          type: array
+          items:
+            type: string
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
