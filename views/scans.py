@@ -30,15 +30,8 @@ def get_scans(
     return paginate(scans)
 
 
-@router.get("/scans/{scan_id}", tags=["Scan"])
-def get_scans_by_id(scan_id: str, session: Session = Depends(get_session)):
-    result = session.execute(select(Scans).where(Scans.id == scan_id))
-    scan = result.scalars().first()
-    return scan
-
-
 @router.get("/scans/range", tags=["Scan"], response_model=Page[Scans])
-def read_user(
+def get_scans_range(
     offset: int = 0, limit: int = Query(default=100, lte=100),
     order: ScansOrder = None,
     order_direction: OrderDirection = None,
@@ -54,3 +47,10 @@ def read_user(
     result = session.execute(query.offset(offset).limit(limit))
     scans = result.scalars().all()
     return paginate(scans)
+
+
+@router.get("/scans/{scan_id}", tags=["Scan"])
+def get_scan_by_id(scan_id: str, session: Session = Depends(get_session)):
+    result = session.execute(select(Scans).where(Scans.id == scan_id))
+    scan = result.scalars().first()
+    return scan

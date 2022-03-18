@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.get("/identities/get", tags=["Identity"], response_model=Page[Identities])
-def get_scans(
+def get_identities(
     order: IdentitiesOrder = None,
     order_direction: OrderDirection = None,
     session: Session = Depends(get_session)
@@ -30,15 +30,8 @@ def get_scans(
     return paginate(identities)
 
 
-@router.get("/identities/{scan_id}", tags=["Identity"])
-def get_scans_by_id(identity_id: str, session: Session = Depends(get_session)):
-    result = session.execute(select(Identities).where(Identities.id == identity_id))
-    identity = result.scalars().first()
-    return identity
-
-
 @router.get("/identities/range", tags=["Identity"], response_model=Page[Identities])
-def read_user(
+def get_identities_range(
     offset: int = 0, limit: int = Query(default=100, lte=100),
     order: IdentitiesOrder = None,
     order_direction: OrderDirection = None,
@@ -54,3 +47,10 @@ def read_user(
     result = session.execute(query.offset(offset).limit(limit))
     identities = result.scalars().all()
     return paginate(identities)
+
+
+@router.get("/identities/{identity_id}", tags=["Identity"])
+def get_identity_by_id(identity_id: str, session: Session = Depends(get_session)):
+    result = session.execute(select(Identities).where(Identities.id == identity_id))
+    identity = result.scalars().first()
+    return identity
